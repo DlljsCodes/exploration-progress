@@ -2,10 +2,15 @@
 from log import log
 
 
-def plugin_start3(plugin_dir):
-    # Load plugin into EDMC in Python 3 mode
-    log("Exploration Progress has been loaded from " + plugin_dir)
+def plugin_start():
+    # Load plugin into EDMC
+    log("Exploration Progress has been loaded")
     return "Exploration Progress"
+
+
+def plugin_start3(plugin_dir):
+    # Python 3 mode
+    return plugin_start()
 
 
 def plugin_stop():
