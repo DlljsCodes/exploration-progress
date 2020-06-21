@@ -19,17 +19,5 @@ current.setName(name=get_system_name("Enter the name of the system you are curre
 origin_coords = origin.getCoords()
 destination_coords = destination.getCoords()
 current_coords = current.getCoords()
-ori_to_curr_distance = calculate.calculate_distance(origin_coords["x"],
-                                                    origin_coords["y"],
-                                                    origin_coords["z"],
-                                                    current_coords["x"],
-                                                    current_coords["y"],
-                                                    current_coords["z"])
-curr_to_dest_distance = calculate.calculate_distance(current_coords["x"],
-                                                     current_coords["y"],
-                                                     current_coords["z"],
-                                                     destination_coords["x"],
-                                                     destination_coords["y"],
-                                                     destination_coords["z"])
-percentage = calculate.calculate_percentage(ori_to_curr_distance, curr_to_dest_distance)
+percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
 print("You are " + str(percentage) + "% of the way there!")
