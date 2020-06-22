@@ -58,4 +58,5 @@ def plugin_app(parent):
     progress = tk.Label(this.frame, text="No Data")
     progress.grid()
     status = tk.Label(this.frame)
+    status.grid()
     return this.frame
