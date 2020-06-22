@@ -48,3 +48,14 @@ def prefs_changed(cmdr, is_beta):
     config.set("DestinationSystem", this.destination_system.get())
     origin.setName(name=this.origin_system, verify=True, populate=True)
     destination.setName(name=this.destination_system, verify=True, populate=True)
+
+
+def plugin_app(parent):
+    # Widget for main EDMC window
+    this.frame = tk.Frame(parent)
+    title = tk.Label(this.frame, text="Exploration Progress")
+    title.grid()
+    progress = tk.Label(this.frame, text="No Data")
+    progress.grid()
+    status = tk.Label(this.frame)
+    return this.frame
