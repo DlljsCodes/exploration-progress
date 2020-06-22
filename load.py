@@ -1,5 +1,16 @@
 # EDMC plugin for Exploration Progress
+import sys
+import TKinter as tk
+import myNotebook as nb
+from config import config
+from system import System
 from log import log
+
+this = sys.modules[__name__]	# For holding module globals
+
+origin = System()
+destination = System()
+current = System()
 
 
 def plugin_start():
