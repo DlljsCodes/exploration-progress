@@ -23,11 +23,15 @@ class System:  # Represents a star system
         return self.coords
 
     # Setters
-    def setName(self, name, populate=False):
+    def setName(self, name, verify=False, populate=False):
         self.name = name
-        self.name_set = True
-        if populate:
-            self.populateCoords()
+        if verify:
+            verify_status = self.verifySystem()
+            if verify_status:
+                self.name_set = True
+            if populate:
+                self.populateCoords()
+        return verify_status
 
     def setCoords(self, x, y, z):
         self.coords = {
@@ -42,3 +46,7 @@ class System:  # Represents a star system
         success, x, y, z = get_coords_from_edsm(self.name)
         if success:
             self.setCoords(x, y, z)
+
+    def verifySystem(self):
+        success = get_coords_from_edsm(self.name)
+        return success[0]
