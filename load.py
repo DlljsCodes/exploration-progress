@@ -27,3 +27,24 @@ def plugin_start3(plugin_dir):
 def plugin_stop():
     # Close plugin as EDMC is closing
     log("Exploration Progress is closing!")
+
+
+def plugin_prefs(parent, cmdr, is_beta):
+    # Plugin settings GUI in EDMC Settings dialog
+    frame = nb.Frame(parent)
+    this.origin_system = tk.StringVar(value=config.get("OriginSystem"))
+    this.destination_system = tk.StringVar(value=config.get("DestinationSystem"))
+    nb.Label(frame, text="Origin System").grid()
+    nb.Entry(frame, textvariable=this.origin_system).grid
+    nb.Label(frame, text="Destination System").grid()
+    nb.Entry(frame, textvariable=this.destination_system).grid()
+    nb.Label(frame, text="Exploration Progress by Dlljs")
+    return frame
+
+
+def prefs_changed(cmdr, is_beta):
+    # Save settings
+    config.set("OriginSystem", this.origin_system.get())
+    config.set("DestinationSystem", this.destination_system.get())
+    origin.setName(name=this.origin_system, verify=True, populate=True)
+    destination.setName(name=this.destination_system, verify=True, populate=True)
