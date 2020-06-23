@@ -1,10 +1,18 @@
 # EDMC plugin for Exploration Progress
 import sys
-import TKinter as tk
+
 import myNotebook as nb
 from config import config
+
 from system import System
 from log import log
+
+try:
+    # Python 2
+    import Tkinter as tk
+except ModuleNotFoundError:
+    # Python 3
+    import tkinter as tk
 
 this = sys.modules[__name__]	# For holding module globals
 
