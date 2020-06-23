@@ -45,10 +45,10 @@ def plugin_prefs(parent, cmdr, is_beta):
     this.origin_system = tk.StringVar(value=config.get("ExProg_OriginSystem"))
     this.destination_system = tk.StringVar(value=config.get("ExProg_DestinationSystem"))
     nb.Label(frame, text="Origin System").grid()
-    nb.Entry(frame, textvariable=this.origin_system).grid
+    nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
-    nb.Label(frame, text="Exploration Progress by Dlljs")
+    nb.Label(frame, text="Exploration Progress by Dlljs").grid()
     return frame
 
 
