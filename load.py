@@ -12,9 +12,11 @@ import calculate
 try:
     # Python 2
     import Tkinter as tk
+    import ttk
 except ModuleNotFoundError:
     # Python 3
     import tkinter as tk
+    import tkinter.ttk
 
 this = sys.modules[__name__]	# For holding module globals
 
@@ -66,6 +68,8 @@ def plugin_app(parent):
     this.title.grid()
     this.progress = tk.Label(this.frame, text="No Data")
     this.progress.grid()
+    this.bar = ttk.Progressbar(this.frame, length=100, mode="determinate")
+    this.bar.grid()
     this.status = tk.Label(this.frame, text="")
     this.status.grid()
     update_systems()
@@ -73,9 +77,9 @@ def plugin_app(parent):
 
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
-    if entry['event'] == 'FSDJump':
+    if entry['event'] == 'FSDJump' or entry['event'] == 'Location':
         # Arrived in system
-        log("New FSDJump event detected, updating current system...")
+        log("New FSDJump or Location event detected, updating current system...")
         current.setName(name=entry["StarSystem"], verify=False, populate=False)
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
@@ -117,9 +121,11 @@ def update_progress():
         log("Calculating percentage...")
         percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
         this.progress["text"] = str(percentage) + "%"
+        this.bar["value"] = percentage
     else:
         log("Can't show progress at this time")
         this.progress["text"] = "??.??%"
+        this.bar["value"] = 0
     theme.update(this.frame)
     log("Progress updated")
 
@@ -151,7 +157,7 @@ def update_status():
     elif not current.getNameSet():
         log("Current system not set")
         status_message = "Where are you?\n" \
-                         "Make a hyperspace jump to find your current location."
+                         "Either log into the game or make a hyperspace jump to find your current location."
         status_colour = "yellow"
     else:
         log("All systems go!")
