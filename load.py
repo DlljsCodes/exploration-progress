@@ -6,6 +6,7 @@ from config import config
 
 from system import System
 from log import log
+import calculate
 
 try:
     # Python 2
@@ -76,3 +77,12 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         current.setName(name=entry["StarSystem"], verify=False, populate=False)
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
+        update_progress()
+
+
+def update_progress():
+    origin_coords = origin.getCoords()
+    destination_coords = destination.getCoords()
+    current_coords = current.getCoords()
+    percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
+    this.progress["text"] = str(percentage) + "%"
