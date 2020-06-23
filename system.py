@@ -10,6 +10,7 @@ class System:  # Represents a star system
             "z": 0
         }
         self.name_set = False  # True if the system name is locked in
+        self.name_verified = True # True if the system name has been verified on EDSM
         self.coords_set = False  # True if the system coordinates are locked in
 
         # If name is not set, the object is a placeholder until the name is set
@@ -30,22 +31,21 @@ class System:  # Represents a star system
 
     # Setters
     def setName(self, name, verify=False, populate=False):
+        self.name_set = False
+        self.name_verified = False
         self.name = name
-        if verify:
-            verify_status = self.verifySystem()
-            if verify_status:
-                self.name_set = True
-            else:
-                self.name_set = False
+        if self.name == "" or None:
+            self.name_set = False
+        else:
+            self.name_set = True
+            if verify:
+                verify_status = self.verifySystem()
+                if verify_status:
+                    self.name_verified = True
+                else:
+                    self.name_verified = False
             if populate:
                 self.populateCoords()
-        else:
-            if self.name == "" or None:
-                self.name_set = False
-            else:
-                self.name_set = True
-
-        return verify_status
 
     def setCoords(self, x, y, z):
         self.coords = {
