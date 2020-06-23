@@ -85,6 +85,7 @@ def update_systems():
     destination_name = config.get("ExProg_DestinationSystem")
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
+    update_status()
     update_progress()
 
 
