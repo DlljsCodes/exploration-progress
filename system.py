@@ -38,7 +38,9 @@ class System:  # Represents a star system
         self.name_verified = False
         self.coords_set = False
         self.name = name
-        if self.name == "" or None:
+        if self.name == "":
+            self.name_set = False
+        elif self.name is None:
             self.name_set = False
         else:
             self.name_set = True
