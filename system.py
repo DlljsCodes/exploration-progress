@@ -33,6 +33,7 @@ class System:  # Represents a star system
     def setName(self, name, verify=False, populate=False):
         self.name_set = False
         self.name_verified = False
+        self.coords_set = False
         self.name = name
         if self.name == "" or None:
             self.name_set = False
