@@ -25,6 +25,7 @@ current = System()
 def plugin_start():
     # Load plugin into EDMC
     log("Exploration Progress has been loaded")
+    update_systems()
     return "Exploration Progress"
 
 
@@ -55,8 +56,7 @@ def prefs_changed(cmdr, is_beta):
     # Save settings
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
-    origin.setName(name=this.origin_system, verify=True, populate=True)
-    destination.setName(name=this.destination_system, verify=True, populate=True)
+    update_systems()
 
 
 def plugin_app(parent):
@@ -78,6 +78,13 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
         update_progress()
+
+
+def update_systems():
+    origin_name = config.get("ExProg_OriginSystem")
+    destination_name = config.get("ExProg_DestinationSystem")
+    origin.setName(name=origin_name, verify=True, populate=True)
+    destination.setName(name=destination_name, verify=True, populate=True)
 
 
 def update_progress():
