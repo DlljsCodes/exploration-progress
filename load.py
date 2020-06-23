@@ -115,27 +115,28 @@ def update_status():
     status_colour = ""
     if not origin.getNameSet():
         log("Origin system not set")
-        status_message = "The origin system hasn't been specified. " \
+        status_message = "The origin system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
         status_colour = "red"
     elif not destination.getNameSet():
         log("Destination system not set")
-        status_message = "The destination system hasn't been specified. " \
+        status_message = "The destination system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
         status_colour = "red"
     elif not origin.getNameVerified():
         log("Origin system not verified")
-        status_message = "Could not find the origin system " + origin.getName() + " in EDSM database." \
+        status_message = "Could not find the origin system " + origin.getName() + " in EDSM database.\n" \
                          "Either it doesn't exist or there was a problem connecting."
         status_colour = "red"
     elif not destination.getNameVerified():
         log("Destination system not verified")
-        status_message = "Could not find the destination system " + destination.getName() + " in EDSM database." \
+        status_message = "Could not find the destination system " + destination.getName() + " in EDSM database.\n" \
                          "Either it doesn't exist or there was a problem connecting."
         status_colour = "red"
     elif not current.getNameSet():
         log("Current system not set")
-        status_message = "Where are you? Make a hyperspace jump to find your current location."
+        status_message = "Where are you?\n" \
+                         "Make a hyperspace jump to find your current location."
         status_colour = "yellow"
     else:
         log("All systems go!")
