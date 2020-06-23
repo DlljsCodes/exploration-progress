@@ -3,6 +3,7 @@ import sys
 
 import myNotebook as nb
 from config import config
+from theme import theme
 
 from system import System
 from log import log
