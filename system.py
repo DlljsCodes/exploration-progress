@@ -22,6 +22,12 @@ class System:  # Represents a star system
     def getCoords(self):
         return self.coords
 
+    def getNameSet(self):
+        return self.name_set
+
+    def getCoordsSet(self):
+        return self.coords_set
+
     # Setters
     def setName(self, name, verify=False, populate=False):
         self.name = name
@@ -47,6 +53,7 @@ class System:  # Represents a star system
         if success:
             self.setCoords(x, y, z)
 
+    # Function to verify system existence on EDSM
     def verifySystem(self):
         success = get_coords_from_edsm(self.name)
         return success[0]
