@@ -35,8 +35,16 @@ class System:  # Represents a star system
             verify_status = self.verifySystem()
             if verify_status:
                 self.name_set = True
+            else:
+                self.name_set = False
             if populate:
                 self.populateCoords()
+        else:
+            if self.name == "" or None:
+                self.name_set = False
+            else:
+                self.name_set = True
+
         return verify_status
 
     def setCoords(self, x, y, z):
