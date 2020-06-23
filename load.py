@@ -87,6 +87,7 @@ def update_systems():
     log("Updating origin and destination systems...")
     origin_name = config.get("ExProg_OriginSystem")
     destination_name = config.get("ExProg_DestinationSystem")
+    log("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
     log("Origin and destination systems updated")
