@@ -94,3 +94,25 @@ def update_progress():
     current_coords = current.getCoords()
     percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
     this.progress["text"] = str(percentage) + "%"
+    theme.update(this.frame)
+
+
+def update_status():
+    if not origin.getNameSet():
+        status_message = "The origin system hasn't been specified. " \
+                         "Set it in the Exploration Progress tab in File -> Settings."
+        status_colour = "red"
+    elif not destination.getNameSet():
+        status_message = "The destination system hasn't been specified. " \
+                         "Set it in the Exploration Progress tab in File -> Settings."
+        status_colour = "red"
+    elif not current.getNameSet():
+        status_message = "Where are you? Make a hyperspace jump to find your current location."
+        status_colour = "yellow"
+    else:
+        status_message = "All systems go!"
+        status_colour = "green"
+
+    this.status["text"] = status_message
+    this.status["foreground"] = status_colour
+    theme.update(this.frame)
