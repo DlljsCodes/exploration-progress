@@ -62,12 +62,12 @@ def prefs_changed(cmdr, is_beta):
 def plugin_app(parent):
     # Widget for main EDMC window
     this.frame = tk.Frame(parent)
-    title = tk.Label(this.frame, text="Exploration Progress")
-    title.grid()
-    progress = tk.Label(this.frame, text="No Data")
-    progress.grid()
-    status = tk.Label(this.frame, text="")
-    status.grid()
+    this.title = tk.Label(this.frame, text="Exploration Progress")
+    this.title.grid()
+    this.progress = tk.Label(this.frame, text="No Data")
+    this.progress.grid()
+    this.status = tk.Label(this.frame, text="")
+    this.status.grid()
     return this.frame
 
 
