@@ -98,13 +98,28 @@ def update_systems():
 
 def update_progress():
     log("Updating progress...")
-    log("Getting coordinates...")
-    origin_coords = origin.getCoords()
-    destination_coords = destination.getCoords()
-    current_coords = current.getCoords()
-    log("Calculating percentage...")
-    percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
-    this.progress["text"] = str(percentage) + "%"
+    systems_set = 0
+    if origin.getNameSet() and origin.getNameVerified():
+        log("Origin system set and verified")
+        systems_set += 1
+    if destination.getNameSet() and destination.getNameVerified():
+        log("Destination system set and verified")
+        systems_set += 1
+    if current.getNameSet():
+        log("Current system set")
+        systems_set += 1
+    log(str(systems_set) + " system(s) set")
+    if systems_set == 3:
+        log("Getting coordinates...")
+        origin_coords = origin.getCoords()
+        destination_coords = destination.getCoords()
+        current_coords = current.getCoords()
+        log("Calculating percentage...")
+        percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
+        this.progress["text"] = str(percentage) + "%"
+    else:
+        log("Can't show progress at this time")
+        this.progress["text"] = "??.??%"
     theme.update(this.frame)
     log("Progress updated")
 
