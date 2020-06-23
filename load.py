@@ -66,7 +66,7 @@ def plugin_app(parent):
     title.grid()
     progress = tk.Label(this.frame, text="No Data")
     progress.grid()
-    status = tk.Label(this.frame)
+    status = tk.Label(this.frame, text="")
     status.grid()
     return this.frame
 
@@ -98,6 +98,8 @@ def update_progress():
 
 
 def update_status():
+    status_message = ""
+    status_colour = ""
     if not origin.getNameSet():
         status_message = "The origin system hasn't been specified. " \
                          "Set it in the Exploration Progress tab in File -> Settings."
@@ -105,6 +107,14 @@ def update_status():
     elif not destination.getNameSet():
         status_message = "The destination system hasn't been specified. " \
                          "Set it in the Exploration Progress tab in File -> Settings."
+        status_colour = "red"
+    elif not origin.getNameVerified():
+        status_message = "Could not find the origin system " + origin.getName() + " in EDSM database." \
+                         "Either it doesn't exist or there was a problem connecting."
+        status_colour = "red"
+    elif not destination.getNameVerified():
+        status_message = "Could not find the destination system " + destination.getName() + " in EDSM database." \
+                         "Either it doesn't exist or there was a problem connecting."
         status_colour = "red"
     elif not current.getNameSet():
         status_message = "Where are you? Make a hyperspace jump to find your current location."

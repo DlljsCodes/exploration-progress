@@ -26,6 +26,9 @@ class System:  # Represents a star system
     def getNameSet(self):
         return self.name_set
 
+    def getNameVerified(self):
+        return self.name_verified
+
     def getCoordsSet(self):
         return self.coords_set
 
