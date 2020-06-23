@@ -25,7 +25,6 @@ current = System()
 def plugin_start():
     # Load plugin into EDMC
     log("Exploration Progress has been loaded")
-    update_systems()
     return "Exploration Progress"
 
 
@@ -68,6 +67,7 @@ def plugin_app(parent):
     this.progress.grid()
     this.status = tk.Label(this.frame, text="")
     this.status.grid()
+    update_systems()
     return this.frame
 
 
