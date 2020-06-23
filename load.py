@@ -60,3 +60,11 @@ def plugin_app(parent):
     status = tk.Label(this.frame)
     status.grid()
     return this.frame
+
+
+def journal_entry(cmdr, is_beta, system, station, entry, state):
+    if entry['event'] == 'FSDJump':
+        # Arrived in system
+        current.setName(name=entry["StarSystem"], verify=False, populate=False)
+        coords = tuple(entry["StarPos"])
+        current.setCoords(coords[0], coords[1], coords[2])
