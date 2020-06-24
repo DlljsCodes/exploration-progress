@@ -7,8 +7,8 @@ def get_system_name(system_object, prompt):
     input_system = True
     while input_system:
         user_input = str(input(prompt))
-        success = system_object.setName(name=user_input, verify=True, populate=True)
-        if success:
+        system_object.setName(name=user_input, verify=True, populate=True)
+        if system_object.getNameVerified():
             input_system = False
         else:
             input_system = True
