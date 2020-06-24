@@ -157,11 +157,12 @@ def update_status():
     elif not current.getNameSet():
         log("Current system not set")
         status_message = "Where are you?\n" \
-                         "Either log into the game or make a hyperspace jump to find your current location."
+                         "Either log into the game or\n" \
+                         "make a hyperspace jump to find your current location."
         status_colour = "yellow"
     else:
         log("All systems go!")
-        status_message = "All systems go!"
+        status_message = ""
         status_colour = "green"
 
     this.status["text"] = status_message
