@@ -80,9 +80,10 @@ def plugin_app(parent):
 
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
-    if entry['event'] == 'FSDJump' or entry['event'] == 'Location':
+    if entry['event'] == 'FSDJump' or entry['event'] == 'Location' \
+            or entry['event'] == 'StartUp' or entry['event'] == 'CarrierJump':
         # Arrived in system
-        log("New FSDJump or Location event detected, updating current system...")
+        log("New event with system info detected, updating current system...")
         current.setName(name=entry["StarSystem"], verify=False, populate=False)
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
