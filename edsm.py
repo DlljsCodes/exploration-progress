@@ -1,6 +1,11 @@
 import json
-from urllib.parse import quote
-from urllib.request import urlopen
+try:
+    # Python 2
+    from urllib2 import quote, urlopen
+except ModuleNotFoundError:
+    # Python 3
+    from urllib.parse import quote
+    from urllib.request import urlopen
 
 
 # Use the Elite Dangerous Star Map API to get system coordinates
