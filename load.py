@@ -17,7 +17,7 @@ try:
 except ModuleNotFoundError:
     # Python 3
     import tkinter as tk
-    import tkinter.ttk
+    import tkinter.ttk as ttk
 
 this = sys.modules[__name__]	# For holding module globals
 
