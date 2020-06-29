@@ -49,7 +49,7 @@ Alternatively, you can use the original proof of concept standalone program, whi
 ## Credits
 
 * Special thanks to all the EDMC (plugin) developers in the [EDCD Discord Server](https://discord.gg/zQjjutY). Without their help, the EDMC plugin would not exist.
-* Thanks to [Marginal](https://github.com/Marginal) for the [EDMC](https://github.com/EDCD/EDMarketConnector) program.
+* Thanks to [Marginal](https://github.com/Marginal) and [EDCD](https://github.com/EDCD) for the [EDMC](https://github.com/EDCD/EDMarketConnector) program.
 * Thanks to [Anthor](https://github.com/EDSM-NET) for the [EDSM](https://www.edsm.net/) API.
 * [Elite Dangerous](https://www.elitedangerous.com/) © 1984 - 2020 [Frontier Developments Plc.](https://www.frontier.co.uk/)
 
