@@ -52,3 +52,9 @@ Alternatively, you can use the original proof of concept standalone program, whi
 * Thanks to [Marginal](https://github.com/Marginal) for the [EDMC](https://github.com/EDCD/EDMarketConnector) program.
 * Thanks to [Anthor](https://github.com/EDSM-NET) for the [EDSM](https://www.edsm.net/) API.
 * [Elite Dangerous](https://www.elitedangerous.com/) © 1984 - 2020 [Frontier Developments Plc.](https://www.frontier.co.uk/)
+
+## Contact
+
+* Twitter: [@dlljs](https://twitter.com/dlljs)
+* Discord: Dlljs#8136
+* Email: [contact@dlljs.uk](mailto:contact@dlljs.uk)
