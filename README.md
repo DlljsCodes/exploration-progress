@@ -9,6 +9,12 @@ This is a plugin for [ED Market Connector](https://github.com/EDCD/EDMarketConne
 
 **Please note:** Just like EDMC itself, this plugin only supports the PC & macOS versions of Elite Dangerous. Console (i.e. PS4 & Xbox One) versions are not supported.
 
+### Images
+
+![Main Window Screenshot](img/main_scrshot.png)
+
+![Settings Window Screenshot](img/settings_scrshot.png)
+
 ### Requirements
 * [EDMC](https://github.com/EDCD/EDMarketConnector) (v3.4.6.0+, may work on older versions)
 * Internet connection (to connect to [EDSM](https://www.edsm.net/))
