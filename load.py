@@ -53,7 +53,8 @@ def plugin_prefs(parent, cmdr, is_beta):
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
     nb.Label(frame, text="Exploration Progress (v" + version + ") by Dlljs").grid()
-    HyperlinkLabel(frame, text="View on GitHub", url="https://github.com/DlljsCodes/exploration-progress").grid()
+    HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
+                   url="https://github.com/DlljsCodes/exploration-progress").grid()
     return frame
 
 
