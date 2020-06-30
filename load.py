@@ -17,7 +17,7 @@ try:
 except ModuleNotFoundError:
     # Python 3
     import tkinter as tk
-    import tkinter.ttk
+    import tkinter.ttk as ttk
 
 this = sys.modules[__name__]	# For holding module globals
 
@@ -25,7 +25,7 @@ origin = System()
 destination = System()
 current = System()
 
-version = "1.0.0"
+version = "1.0.1"
 
 def plugin_start():
     # Load plugin into EDMC
@@ -53,7 +53,8 @@ def plugin_prefs(parent, cmdr, is_beta):
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
     nb.Label(frame, text="Exploration Progress (v" + version + ") by Dlljs").grid()
-    HyperlinkLabel(frame, text="View on GitHub", url="https://github.com/DlljsCodes/exploration-progress").grid()
+    HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
+                   url="https://github.com/DlljsCodes/exploration-progress").grid()
     return frame
 
 
@@ -80,9 +81,10 @@ def plugin_app(parent):
 
 
 def journal_entry(cmdr, is_beta, system, station, entry, state):
-    if entry['event'] == 'FSDJump' or entry['event'] == 'Location':
+    if entry['event'] == 'FSDJump' or entry['event'] == 'Location' \
+            or entry['event'] == 'StartUp' or entry['event'] == 'CarrierJump':
         # Arrived in system
-        log("New FSDJump or Location event detected, updating current system...")
+        log("New event with system info detected, updating current system...")
         current.setName(name=entry["StarSystem"], verify=False, populate=False)
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
