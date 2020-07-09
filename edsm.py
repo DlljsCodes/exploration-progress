@@ -26,7 +26,7 @@ def get_coords_from_edsm(system_name):
             x = 0
             y = 0
             z = 0
-    except:
+    except IOError:
         success = False
         x = 0
         y = 0
