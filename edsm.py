@@ -20,7 +20,7 @@ def get_coords_from_edsm(system_name):
         url = urlopen(edsm_url, timeout=15)
         response = url.read()
         edsm_json = json.loads(response)
-        if "name" and "coords" in edsm_json:
+        if {"name", "coords"} <= edsm_json.keys():
             success = True
             x = edsm_json["coords"]["x"]
             y = edsm_json["coords"]["y"]
