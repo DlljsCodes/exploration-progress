@@ -93,7 +93,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         update_progress()
 
 
-def update_systems():
+def update_systems(ui_update=False):
     log("Updating origin and destination systems...")
     origin_name = config.get("ExProg_OriginSystem")
     destination_name = config.get("ExProg_DestinationSystem")
@@ -101,8 +101,9 @@ def update_systems():
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
     log("Origin and destination systems updated")
-    update_status()
-    update_progress()
+    if ui_update:
+        update_status()
+        update_progress()
 
 
 def update_progress():
