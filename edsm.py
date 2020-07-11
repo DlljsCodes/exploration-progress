@@ -12,6 +12,10 @@ except ModuleNotFoundError:
 def get_coords_from_edsm(system_name):
     system_name_url = quote(system_name)
     edsm_url = "https://www.edsm.net/api-v1/system?systemName={SYSTEM}&showCoordinates=1".format(SYSTEM=system_name_url)
+    success = False
+    x = 0
+    y = 0
+    z = 0
     try:
         url = urlopen(edsm_url, timeout=15)
         response = url.read()
@@ -22,13 +26,7 @@ def get_coords_from_edsm(system_name):
             y = edsm_json["coords"]["y"]
             z = edsm_json["coords"]["z"]
         else:
-            success = False
-            x = 0
-            y = 0
-            z = 0
-    except:
-        success = False
-        x = 0
-        y = 0
-        z = 0
+            pass
+    except IOError:
+        pass
     return success, x, y, z
