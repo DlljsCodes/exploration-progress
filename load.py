@@ -94,8 +94,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         if current.getName() == destination.getName():
             log("Destination reached")
             # Reached destination
-            config.set("ExProg_OriginSystem", None)
-            config.set("ExProg_DestinationSystem", None)
+            config.set("ExProg_OriginSystem", "")
+            config.set("ExProg_DestinationSystem", "")
             update_systems(ui_update=False)
             update_status("destination_reached")
 
