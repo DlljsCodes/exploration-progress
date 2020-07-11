@@ -147,7 +147,12 @@ def update_status(external_message=None):
     log("Updating status...")
     status_message = ""
     status_colour = ""
-    if not origin.getNameSet():
+    if external_message == "destination_reached":
+        log("Destination reached")
+        status_message = "You made it to\n" \
+                         "your destination!"
+        status_colour = "green"
+    elif not origin.getNameSet():
         log("Origin system not set")
         status_message = "The origin system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
@@ -173,11 +178,6 @@ def update_status(external_message=None):
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
         status_colour = "yellow"
-    elif external_message == "destination_reached":
-        log("Destination reached")
-        status_message = "You made it to\n" \
-                         "your destination!"
-        status_colour = "green"
     else:
         log("All systems go!")
         status_message = ""
