@@ -92,10 +92,12 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         update_status()
         update_progress()
         if current.getName() == destination.getName():
+            log("Destination reached")
             # Reached destination
             config.set("ExProg_OriginSystem", None)
             config.set("ExProg_DestinationSystem", None)
             update_systems(ui_update=False)
+            update_status("destination_reached")
 
 
 def update_systems(ui_update=False):
@@ -141,7 +143,7 @@ def update_progress():
     log("Progress updated")
 
 
-def update_status():
+def update_status(external_message=None):
     log("Updating status...")
     status_message = ""
     status_colour = ""
@@ -171,6 +173,11 @@ def update_status():
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
         status_colour = "yellow"
+    elif external_message == "destination_reached":
+        log("Destination reached")
+        status_message = "You made it to\n" \
+                         "your destination!"
+        status_colour = "green"
     else:
         log("All systems go!")
         status_message = ""
