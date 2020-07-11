@@ -91,6 +91,11 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         log("Updated current system")
         update_status()
         update_progress()
+        if current.getName() == destination.getName():
+            # Reached destination
+            config.set("ExProg_OriginSystem", None)
+            config.set("ExProg_DestinationSystem", None)
+            update_systems(ui_update=False)
 
 
 def update_systems(ui_update=False):
