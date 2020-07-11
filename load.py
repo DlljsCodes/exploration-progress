@@ -25,7 +25,7 @@ origin = System()
 destination = System()
 current = System()
 
-version = "1.0.1"
+version = "1.0.2-indev"
 
 def plugin_start():
     # Load plugin into EDMC
@@ -91,9 +91,16 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         log("Updated current system")
         update_status()
         update_progress()
+        if current.getName() == destination.getName():
+            log("Destination reached")
+            # Reached destination
+            config.set("ExProg_OriginSystem", "")
+            config.set("ExProg_DestinationSystem", "")
+            update_systems(ui_update=False)
+            update_status("destination_reached")
 
 
-def update_systems():
+def update_systems(ui_update=False):
     log("Updating origin and destination systems...")
     origin_name = config.get("ExProg_OriginSystem")
     destination_name = config.get("ExProg_DestinationSystem")
@@ -101,8 +108,9 @@ def update_systems():
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
     log("Origin and destination systems updated")
-    update_status()
-    update_progress()
+    if ui_update:
+        update_status()
+        update_progress()
 
 
 def update_progress():
@@ -135,11 +143,16 @@ def update_progress():
     log("Progress updated")
 
 
-def update_status():
+def update_status(external_message=None):
     log("Updating status...")
     status_message = ""
     status_colour = ""
-    if not origin.getNameSet():
+    if external_message == "destination_reached":
+        log("Destination reached")
+        status_message = "You made it to\n" \
+                         "your destination!"
+        status_colour = "green"
+    elif not origin.getNameSet():
         log("Origin system not set")
         status_message = "The origin system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
