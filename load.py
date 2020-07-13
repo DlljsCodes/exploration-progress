@@ -10,7 +10,7 @@ from theme import theme
 from system import System
 from log import log
 import calculate
-import database
+from database import Database
 
 try:
     # Python 2
@@ -29,14 +29,12 @@ current = System()
 
 version = "1.0.2-indev"
 database_file = "systems.db"
-database_file_path = ""
 
 
 def plugin_start(plugin_dir):
     # Load plugin into EDMC
-    global database_file_path
     database_file_path = os.path.join(plugin_dir, database_file)
-    database.setup(database_file_path)
+    this.systems_database = Database(database_file_path)
     log("Exploration Progress has been loaded")
     return "Exploration Progress"
 
@@ -53,7 +51,7 @@ def plugin_stop():
 
 def plugin_prefs(parent, cmdr, is_beta):
     # Plugin settings GUI in EDMC Settings dialog
-    success, origin_name, destination_name = database.get_systems(database_file_path, cmdr)
+    success, origin_name, destination_name = this.systems_database.get_systems(cmdr)
     if not success:
         origin_name = config.get("ExProg_OriginSystem")
         destination_name = config.get("ExProg_DestinationSystem")
@@ -74,7 +72,7 @@ def prefs_changed(cmdr, is_beta):
     # Save settings
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
-    database.update(database_file_path, cmdr, this.origin_system.get(), this.destination_system.get())
+    this.systems_database.update(cmdr, this.origin_system.get(), this.destination_system.get())
     update_systems()
 
 
