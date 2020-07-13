@@ -52,9 +52,13 @@ def plugin_stop():
 
 def plugin_prefs(parent, cmdr, is_beta):
     # Plugin settings GUI in EDMC Settings dialog
+    success, origin_name, destination_name = database.get_systems(database_file_path, cmdr)
+    if not success:
+        origin_name = config.get("ExProg_OriginSystem")
+        destination_name = config.get("ExProg_DestinationSystem")
     frame = nb.Frame(parent)
-    this.origin_system = tk.StringVar(value=config.get("ExProg_OriginSystem"))
-    this.destination_system = tk.StringVar(value=config.get("ExProg_DestinationSystem"))
+    this.origin_system = tk.StringVar(value=origin_name)
+    this.destination_system = tk.StringVar(value=destination_name)
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
