@@ -72,8 +72,13 @@ def update(db_file, cmdr, origin, destination):
     conn = connect_database(db_file)
     if conn is not None:
         systems_table = select_systems_records(conn)
-        if cmdr in systems_table:
-            update_systems_record(conn, (origin, destination, cmdr))
-        else:
+        records_amount = len(systems_table)
+        records_checked = 0
+        for record in systems_table:
+            if cmdr in record:
+                update_systems_record(conn, (origin, destination, cmdr))
+            else:
+                records_checked += 1
+        if records_checked >= records_amount:
             insert_systems_record(conn, (cmdr, origin, destination))
         log("Systems database updated")
