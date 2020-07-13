@@ -96,11 +96,14 @@ def get_systems(db_file, cmdr):
         records_checked = 0
         for record in systems_table:
             if cmdr in record:
+                log("Retrieving systems...")
                 success = True
                 origin = record[1]
                 destination = record[2]
+                log("Systems retrieval complete")
             else:
                 records_checked += 1
         if records_checked >= records_amount:
+            log("Failed to retrieve systems, using values stored in registry instead")
             success = False
     return success, origin, destination
