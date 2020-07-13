@@ -57,7 +57,8 @@ def setup(db_file):
     create_systems_table_sql = """CREATE TABLE IF NOT EXISTS systems (
     cmdr TEXT,
     origin TEXT,
-    destination TEXT
+    destination TEXT,
+    travelled FLOAT
     );"""
     log("Starting systems database setup...")
     conn = connect_database(db_file)
