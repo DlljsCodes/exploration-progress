@@ -82,3 +82,25 @@ def update(db_file, cmdr, origin, destination):
         if records_checked >= records_amount:
             insert_systems_record(conn, (cmdr, origin, destination))
         log("Systems database updated")
+
+
+def get_systems(db_file, cmdr):
+    log("Retrieving CMDR systems from database...")
+    success = False
+    origin = ""
+    destination = ""
+    conn = connect_database(db_file)
+    if conn is not None:
+        systems_table = select_systems_records(conn)
+        records_amount = len(systems_table)
+        records_checked = 0
+        for record in systems_table:
+            if cmdr in record:
+                success = True
+                origin = record[1]
+                destination = record[2]
+            else:
+                records_checked += 1
+        if records_checked >= records_amount:
+            success = False
+    return success, origin, destination
