@@ -25,23 +25,23 @@ def create_table(conn, sql):
         print(e)
 
 
-def insert_systems_record(conn, systems):
+def insert_systems_record(conn, data):
     sql = """INSERT INTO systems(cmdr,origin,destination)
     VALUES(?,?,?)"""
     log("Inserting new systems record...")
     cur = conn.cursor()
-    cur.execute(sql, systems)
+    cur.execute(sql, data)
     return cur.lastrowid
 
 
-def update_systems_record(conn, systems):
+def update_systems_record(conn, data):
     sql = """UPDATE systems
     SET origin = ? ,
         destination = ?
     WHERE cmdr = ?"""
     log("Updating existing systems record...")
     cur = conn.cursor()
-    cur.execute(sql, systems)
+    cur.execute(sql, data)
     return cur.lastrowid
 
 
