@@ -1,5 +1,6 @@
 # EDMC plugin for Exploration Progress
 import sys
+import os
 
 import myNotebook as nb
 from ttkHyperlinkLabel import HyperlinkLabel
@@ -34,7 +35,7 @@ database_file_path = ""
 def plugin_start(plugin_dir):
     # Load plugin into EDMC
     global database_file_path
-    database_file_path = plugin_dir + "\\" + database_file
+    database_file_path = os.path.join(plugin_dir, database_file)
     database.setup(database_file_path)
     log("Exploration Progress has been loaded")
     return "Exploration Progress"
