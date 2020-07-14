@@ -87,6 +87,7 @@ class Database:
         log("Inserting new systems record...")
         cur = self.conn.cursor()
         cur.execute(sql, data)
+        self.conn.commit()
         return cur.lastrowid
 
     def __update_systems_record(self, data):
@@ -97,6 +98,7 @@ class Database:
         log("Updating existing systems record...")
         cur = self.conn.cursor()
         cur.execute(sql, data)
+        self.conn.commit()
         return cur.lastrowid
 
     def __select_systems_records(self):
