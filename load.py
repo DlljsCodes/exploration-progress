@@ -99,8 +99,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
         log("Updated current system")
-        update_status()
-        update_progress()
+        update_systems(cmdr)
         if current.getName() == destination.getName():
             log("Destination reached")
             # Reached destination
