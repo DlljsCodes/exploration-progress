@@ -106,7 +106,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             # Reached destination
             config.set("ExProg_OriginSystem", "")
             config.set("ExProg_DestinationSystem", "")
-            update_systems(ui_update=False)
+            update_systems(cmdr, ui_update=False)
             update_status("destination_reached")
 
 
