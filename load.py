@@ -73,7 +73,7 @@ def prefs_changed(cmdr, is_beta):
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
     this.systems_database.update(cmdr, this.origin_system.get(), this.destination_system.get())
-    update_systems()
+    update_systems(cmdr)
 
 
 def plugin_app(parent):
@@ -87,7 +87,6 @@ def plugin_app(parent):
     this.bar.grid()
     this.status = tk.Label(this.frame, text="")
     this.status.grid()
-    update_systems()
     return this.frame
 
 
@@ -111,10 +110,12 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
             update_status("destination_reached")
 
 
-def update_systems(ui_update=False):
+def update_systems(cmdr, ui_update=False):
     log("Updating origin and destination systems...")
-    origin_name = config.get("ExProg_OriginSystem")
-    destination_name = config.get("ExProg_DestinationSystem")
+    success, origin_name, destination_name = this.systems_database.get_systems(cmdr)
+    if not success:
+        origin_name = config.get("ExProg_OriginSystem")
+        destination_name = config.get("ExProg_DestinationSystem")
     log("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
