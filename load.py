@@ -191,7 +191,8 @@ def update_status(external_message=None):
         status_colour = "yellow"
     else:
         log("All systems go!")
-        status_message = ""
+        status_message = "Origin: " + origin.getName() + "\n" \
+                         "Destination: " + destination.getName()
         status_colour = "green"
 
     this.status["text"] = status_message
