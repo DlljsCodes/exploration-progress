@@ -73,7 +73,7 @@ def prefs_changed(cmdr, is_beta):
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
     this.systems_database.update(cmdr, this.origin_system.get(), this.destination_system.get())
-    update_systems(cmdr)
+    update_systems(cmdr, ui_update=True)
 
 
 def plugin_app(parent):
@@ -99,7 +99,7 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
         log("Updated current system")
-        update_systems(cmdr)
+        update_systems(cmdr, ui_update=True)
         if current.getName() == destination.getName():
             log("Destination reached")
             # Reached destination
