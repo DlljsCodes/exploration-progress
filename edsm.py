@@ -13,6 +13,7 @@ def get_coords_from_edsm(system_name):
     system_name_url = quote(system_name)
     edsm_url = "https://www.edsm.net/api-v1/system?systemName={SYSTEM}&showCoordinates=1".format(SYSTEM=system_name_url)
     success = False
+    name = "MissingNo"
     x = 0
     y = 0
     z = 0
@@ -22,6 +23,7 @@ def get_coords_from_edsm(system_name):
         edsm_json = json.loads(response)
         if "name" and "coords" in edsm_json:
             success = True
+            name = edsm_json["name"]
             x = edsm_json["coords"]["x"]
             y = edsm_json["coords"]["y"]
             z = edsm_json["coords"]["z"]
@@ -29,4 +31,4 @@ def get_coords_from_edsm(system_name):
             pass
     except IOError:
         pass
-    return success, x, y, z
+    return success, name, x, y, z

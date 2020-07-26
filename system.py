@@ -63,11 +63,13 @@ class System:  # Represents a star system
 
     # Function to populate coordinates from EDSM
     def populateCoords(self):
-        success, x, y, z = get_coords_from_edsm(self.name)
+        success, name, x, y, z = get_coords_from_edsm(self.name)
         if success:
             self.setCoords(x, y, z)
 
     # Function to verify system existence on EDSM
     def verifySystem(self):
-        success = get_coords_from_edsm(self.name)
-        return success[0]
+        success, name, x, y, z = get_coords_from_edsm(self.name)
+        if success:
+            self.setName(name=name, verify=False, populate=False)
+        return success
