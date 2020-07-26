@@ -1,5 +1,6 @@
 # EDMC plugin for Exploration Progress
 import sys
+import os
 
 import myNotebook as nb
 from ttkHyperlinkLabel import HyperlinkLabel
@@ -9,6 +10,7 @@ from theme import theme
 from system import System
 from log import log
 import calculate
+from database import Database
 
 try:
     # Python 2
@@ -26,16 +28,20 @@ destination = System()
 current = System()
 
 version = "1.0.2-indev"
+database_file = "systems.db"
 
-def plugin_start():
+
+def plugin_start(plugin_dir):
     # Load plugin into EDMC
+    database_file_path = os.path.join(plugin_dir, database_file)
+    this.systems_database = Database(database_file_path)
     log("Exploration Progress has been loaded")
     return "Exploration Progress"
 
 
 def plugin_start3(plugin_dir):
     # Python 3 mode
-    return plugin_start()
+    return plugin_start(plugin_dir)
 
 
 def plugin_stop():
@@ -45,9 +51,13 @@ def plugin_stop():
 
 def plugin_prefs(parent, cmdr, is_beta):
     # Plugin settings GUI in EDMC Settings dialog
+    success, origin_name, destination_name = this.systems_database.get_systems(cmdr)
+    if not success:
+        origin_name = config.get("ExProg_OriginSystem")
+        destination_name = config.get("ExProg_DestinationSystem")
     frame = nb.Frame(parent)
-    this.origin_system = tk.StringVar(value=config.get("ExProg_OriginSystem"))
-    this.destination_system = tk.StringVar(value=config.get("ExProg_DestinationSystem"))
+    this.origin_system = tk.StringVar(value=origin_name)
+    this.destination_system = tk.StringVar(value=destination_name)
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
@@ -62,7 +72,8 @@ def prefs_changed(cmdr, is_beta):
     # Save settings
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
-    update_systems()
+    this.systems_database.update(cmdr, this.origin_system.get(), this.destination_system.get())
+    update_systems(cmdr, ui_update=True)
 
 
 def plugin_app(parent):
@@ -76,7 +87,6 @@ def plugin_app(parent):
     this.bar.grid()
     this.status = tk.Label(this.frame, text="")
     this.status.grid()
-    update_systems()
     return this.frame
 
 
@@ -89,21 +99,22 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
         log("Updated current system")
-        update_status()
-        update_progress()
+        update_systems(cmdr, ui_update=True)
         if current.getName() == destination.getName():
             log("Destination reached")
             # Reached destination
             config.set("ExProg_OriginSystem", "")
             config.set("ExProg_DestinationSystem", "")
-            update_systems(ui_update=False)
+            update_systems(cmdr, ui_update=False)
             update_status("destination_reached")
 
 
-def update_systems(ui_update=False):
+def update_systems(cmdr, ui_update=False):
     log("Updating origin and destination systems...")
-    origin_name = config.get("ExProg_OriginSystem")
-    destination_name = config.get("ExProg_DestinationSystem")
+    success, origin_name, destination_name = this.systems_database.get_systems(cmdr)
+    if not success:
+        origin_name = config.get("ExProg_OriginSystem")
+        destination_name = config.get("ExProg_DestinationSystem")
     log("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
@@ -180,7 +191,8 @@ def update_status(external_message=None):
         status_colour = "yellow"
     else:
         log("All systems go!")
-        status_message = ""
+        status_message = "Origin: " + origin.getName() + "\n" \
+                         "Destination: " + destination.getName()
         status_colour = "green"
 
     this.status["text"] = status_message
