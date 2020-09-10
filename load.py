@@ -9,7 +9,6 @@ from config import appname, config
 from theme import theme
 
 from system import System
-from log import log
 import calculate
 
 try:
