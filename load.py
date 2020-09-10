@@ -44,7 +44,7 @@ version = "1.0.1"
 
 def plugin_start():
     # Load plugin into EDMC
-    log("Exploration Progress has been loaded")
+    logger.info("Exploration Progress has been loaded")
     return "Exploration Progress"
 
 
@@ -55,7 +55,7 @@ def plugin_start3(plugin_dir):
 
 def plugin_stop():
     # Close plugin as EDMC is closing
-    log("Exploration Progress is closing!")
+    logger.info("Exploration Progress is closing!")
 
 
 def plugin_prefs(parent, cmdr, is_beta):
@@ -99,93 +99,93 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
     if entry['event'] == 'FSDJump' or entry['event'] == 'Location' \
             or entry['event'] == 'StartUp' or entry['event'] == 'CarrierJump':
         # Arrived in system
-        log("New event with system info detected, updating current system...")
+        logger.info("New event with system info detected, updating current system...")
         current.setName(name=entry["StarSystem"], verify=False, populate=False)
         coords = tuple(entry["StarPos"])
         current.setCoords(coords[0], coords[1], coords[2])
-        log("Updated current system")
+        logger.info("Updated current system")
         update_status()
         update_progress()
 
 
 def update_systems():
-    log("Updating origin and destination systems...")
+    logger.info("Updating origin and destination systems...")
     origin_name = config.get("ExProg_OriginSystem")
     destination_name = config.get("ExProg_DestinationSystem")
-    log("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
+    logger.debug("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
-    log("Origin and destination systems updated")
+    logger.info("Origin and destination systems updated")
     update_status()
     update_progress()
 
 
 def update_progress():
-    log("Updating progress...")
+    logger.info("Updating progress...")
     systems_set = 0
     if origin.getNameSet() and origin.getNameVerified():
-        log("Origin system set and verified")
+        logger.debug("Origin system set and verified")
         systems_set += 1
     if destination.getNameSet() and destination.getNameVerified():
-        log("Destination system set and verified")
+        logger.debug("Destination system set and verified")
         systems_set += 1
     if current.getNameSet():
-        log("Current system set")
+        logger.debug("Current system set")
         systems_set += 1
-    log(str(systems_set) + " system(s) set")
+    logger.debug(str(systems_set) + " system(s) set")
     if systems_set == 3:
-        log("Getting coordinates...")
+        logger.debug("Getting coordinates...")
         origin_coords = origin.getCoords()
         destination_coords = destination.getCoords()
         current_coords = current.getCoords()
-        log("Calculating percentage...")
+        logger.debug("Calculating percentage...")
         percentage = calculate.calculate_progress(origin_coords, current_coords, destination_coords)
         this.progress["text"] = str(percentage) + "%"
         this.bar["value"] = percentage
     else:
-        log("Can't show progress at this time")
+        logger.debug("Can't show progress at this time")
         this.progress["text"] = "??.??%"
         this.bar["value"] = 0
     theme.update(this.frame)
-    log("Progress updated")
+    logger.info("Progress updated")
 
 
 def update_status():
-    log("Updating status...")
+    logger.info("Updating status...")
     status_message = ""
     status_colour = ""
     if not origin.getNameSet():
-        log("Origin system not set")
+        logger.debug("Origin system not set")
         status_message = "The origin system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
         status_colour = "red"
     elif not destination.getNameSet():
-        log("Destination system not set")
+        logger.debug("Destination system not set")
         status_message = "The destination system hasn't been specified.\n" \
                          "Set it in the Exploration Progress tab in File -> Settings."
         status_colour = "red"
     elif not origin.getNameVerified():
-        log("Origin system not verified")
+        logger.debug("Origin system not verified")
         status_message = "Could not find the origin system " + origin.getName() + " in EDSM database.\n" \
                          "Either it doesn't exist or there was a problem connecting."
         status_colour = "red"
     elif not destination.getNameVerified():
-        log("Destination system not verified")
+        logger.debug("Destination system not verified")
         status_message = "Could not find the destination system " + destination.getName() + " in EDSM database.\n" \
                          "Either it doesn't exist or there was a problem connecting."
         status_colour = "red"
     elif not current.getNameSet():
-        log("Current system not set")
+        logger.debug("Current system not set")
         status_message = "Where are you?\n" \
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
         status_colour = "yellow"
     else:
-        log("All systems go!")
+        logger.debug("All systems go!")
         status_message = ""
         status_colour = "green"
 
     this.status["text"] = status_message
     this.status["foreground"] = status_colour
     theme.update(this.frame)
-    log("Status updated")
+    logger.info("Status updated")
