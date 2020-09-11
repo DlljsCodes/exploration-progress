@@ -111,7 +111,7 @@ def update_systems():
     logger.info("Updating origin and destination systems...")
     origin_name = config.get("ExProg_OriginSystem")
     destination_name = config.get("ExProg_DestinationSystem")
-    logger.debug("Origin system: " + str(origin_name) + ", Destination system: " + str(destination_name))
+    logger.debug(f"Origin system: {origin_name}, Destination system: {destination_name}")
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
     logger.info("Origin and destination systems updated")
@@ -131,7 +131,7 @@ def update_progress():
     if current.getNameSet():
         logger.debug("Current system set")
         systems_set += 1
-    logger.debug(str(systems_set) + " system(s) set")
+    logger.debug(f"{systems_set} system(s) set")
     if systems_set == 3:
         logger.debug("Getting coordinates...")
         origin_coords = origin.getCoords()
