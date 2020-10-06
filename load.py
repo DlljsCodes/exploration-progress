@@ -39,7 +39,7 @@ origin = System()
 destination = System()
 current = System()
 
-version = "1.0.1"
+version = "1.0.2"
 
 def plugin_start():
     # Load plugin into EDMC
