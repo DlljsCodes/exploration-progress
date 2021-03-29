@@ -5,7 +5,7 @@ import logging
 
 import myNotebook as nb
 from ttkHyperlinkLabel import HyperlinkLabel
-from config import appname, config
+from config import appname, appversion, config
 from theme import theme
 
 from system import System
