@@ -118,9 +118,11 @@ def get_config_str_value(key):
     # Wrapper for either config.get_str() (EDMC <=5.0.0) or config.get (EDMC >5.0.0)
     if edmc_version > semantic_version.Version("5.0.0-beta1"):
         # At least EDMC 5.0.0
+        logger.debug(f"EDMC version {edmc_version} should be at least 5.0.0-beta1")
         value = config.get_str(key)
     else:
         # Before EDMC 5.0.0
+        logger.debug(f"EDMC version {edmc_version} should be before 5.0.0-beta1")
         value = config.get(key)
     return value
 
