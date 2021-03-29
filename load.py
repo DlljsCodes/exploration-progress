@@ -114,6 +114,17 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         update_progress()
 
 
+def get_config_str_value(key):
+    # Wrapper for either config.get_str() (EDMC <=5.0.0) or config.get (EDMC >5.0.0)
+    if edmc_version > semantic_version.Version("5.0.0-beta1"):
+        # Before EDMC 5.0.0
+        value = config.get(key)
+    else:
+        # At least EDMC 5.0.0
+        value = config.get_str(key)
+    return value
+
+
 def update_systems():
     logger.info("Updating origin and destination systems...")
     origin_name = config.get_str("ExProg_OriginSystem")
