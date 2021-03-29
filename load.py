@@ -60,8 +60,8 @@ def plugin_stop():
 def plugin_prefs(parent, cmdr, is_beta):
     # Plugin settings GUI in EDMC Settings dialog
     frame = nb.Frame(parent)
-    this.origin_system = tk.StringVar(value=config.get("ExProg_OriginSystem"))
-    this.destination_system = tk.StringVar(value=config.get("ExProg_DestinationSystem"))
+    this.origin_system = tk.StringVar(value=config.get_str("ExProg_OriginSystem"))
+    this.destination_system = tk.StringVar(value=config.get_str("ExProg_DestinationSystem"))
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
@@ -109,8 +109,8 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
 
 def update_systems():
     logger.info("Updating origin and destination systems...")
-    origin_name = config.get("ExProg_OriginSystem")
-    destination_name = config.get("ExProg_DestinationSystem")
+    origin_name = config.get_str("ExProg_OriginSystem")
+    destination_name = config.get_str("ExProg_DestinationSystem")
     logger.debug(f"Origin system: {origin_name}, Destination system: {destination_name}")
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)
