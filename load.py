@@ -2,6 +2,7 @@
 import sys
 import os
 import logging
+import semantic_version
 
 import myNotebook as nb
 from ttkHyperlinkLabel import HyperlinkLabel
@@ -19,6 +20,12 @@ except ModuleNotFoundError:
     # Python 3
     import tkinter as tk
     import tkinter.ttk as ttk
+
+# Get EDMC version
+if isinstance(appversion, str):
+    edmc_version = semantic_version.Version(appversion)
+elif callable(appversion):
+    edmc_version = appversion()
 
 # Setup logging
 plugin_name = os.path.basename(os.path.dirname(__file__))
