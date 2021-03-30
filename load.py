@@ -2,10 +2,11 @@
 import sys
 import os
 import logging
+import semantic_version
 
 import myNotebook as nb
 from ttkHyperlinkLabel import HyperlinkLabel
-from config import appname, config
+from config import appname, appversion, config
 from theme import theme
 
 from system import System
@@ -19,6 +20,12 @@ except ModuleNotFoundError:
     # Python 3
     import tkinter as tk
     import tkinter.ttk as ttk
+
+# Get EDMC version
+if isinstance(appversion, str):
+    edmc_version = semantic_version.Version(appversion)
+elif callable(appversion):
+    edmc_version = appversion()
 
 # Setup logging
 plugin_name = os.path.basename(os.path.dirname(__file__))
@@ -39,7 +46,7 @@ origin = System()
 destination = System()
 current = System()
 
-version = "1.0.2"
+plugin_version = semantic_version.Version("1.0.3")
 
 def plugin_start():
     # Load plugin into EDMC
@@ -60,13 +67,13 @@ def plugin_stop():
 def plugin_prefs(parent, cmdr, is_beta):
     # Plugin settings GUI in EDMC Settings dialog
     frame = nb.Frame(parent)
-    this.origin_system = tk.StringVar(value=config.get("ExProg_OriginSystem"))
-    this.destination_system = tk.StringVar(value=config.get("ExProg_DestinationSystem"))
+    this.origin_system = tk.StringVar(value=get_config_str_value("ExProg_OriginSystem"))
+    this.destination_system = tk.StringVar(value=get_config_str_value("ExProg_DestinationSystem"))
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
-    nb.Label(frame, text="Exploration Progress (v" + version + ") by Dlljs").grid()
+    nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
     HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
                    url="https://github.com/DlljsCodes/exploration-progress").grid()
     return frame
@@ -107,10 +114,23 @@ def journal_entry(cmdr, is_beta, system, station, entry, state):
         update_progress()
 
 
+def get_config_str_value(key):
+    # Wrapper for either config.get_str() (EDMC <=5.0.0) or config.get (EDMC >5.0.0)
+    if edmc_version > semantic_version.Version("5.0.0-beta1"):
+        # At least EDMC 5.0.0
+        logger.debug(f"EDMC version {edmc_version} should be at least 5.0.0-beta1")
+        value = config.get_str(key)
+    else:
+        # Before EDMC 5.0.0
+        logger.debug(f"EDMC version {edmc_version} should be before 5.0.0-beta1")
+        value = config.get(key)
+    return value
+
+
 def update_systems():
     logger.info("Updating origin and destination systems...")
-    origin_name = config.get("ExProg_OriginSystem")
-    destination_name = config.get("ExProg_DestinationSystem")
+    origin_name = get_config_str_value("ExProg_OriginSystem")
+    destination_name = get_config_str_value("ExProg_DestinationSystem")
     logger.debug(f"Origin system: {origin_name}, Destination system: {destination_name}")
     origin.setName(name=origin_name, verify=True, populate=True)
     destination.setName(name=destination_name, verify=True, populate=True)

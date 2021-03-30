@@ -16,7 +16,7 @@ This is a plugin for [ED Market Connector](https://github.com/EDCD/EDMarketConne
 ![Settings Window Screenshot](img/settings_scrshot.png)
 
 ### Requirements
-* [EDMC](https://github.com/EDCD/EDMarketConnector) (v3.4.6.0+, may work on older versions)
+* [EDMC](https://github.com/EDCD/EDMarketConnector) (v5.0.0+, may work on older versions)
 * Internet connection (to connect to [EDSM](https://www.edsm.net/))
 
 ### How to Install
