@@ -51,8 +51,8 @@ plugin_version = semantic_version.Version("1.0.3")
 def plugin_start():
     # Load plugin into EDMC
     logger.info("Exploration Progress has been loaded")
-    if get_config_str_value("ExProg_LocationStatusText") != "yellow" or "dark orange":
-        config.set("ExProg_LocationStatusText", "dark orange")
+    if get_config_str_value("ExProg_LocationStatusText") != "yellow" or "#FF5000":
+        config.set("ExProg_LocationStatusText", "#FF5000")
     return "Exploration Progress"
 
 
@@ -77,7 +77,7 @@ def plugin_prefs(parent, cmdr, is_beta):
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
     nb.Checkbutton(frame, text="Use yellow text for status", variable=this.location_status_text,
-                   onvalue="yellow", offvalue="dark orange").grid()
+                   onvalue="yellow", offvalue="#FF5000").grid()
     nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
     HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
                    url="https://github.com/DlljsCodes/exploration-progress").grid()
