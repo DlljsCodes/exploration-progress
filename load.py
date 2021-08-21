@@ -202,7 +202,7 @@ def update_status():
         status_message = "Where are you?\n" \
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
-        status_colour = "dark orange"
+        status_colour = get_config_str_value("ExProg_LocationStatusText")
     else:
         logger.debug("All systems go!")
         status_message = ""
