@@ -51,6 +51,8 @@ plugin_version = semantic_version.Version("1.0.3")
 def plugin_start():
     # Load plugin into EDMC
     logger.info("Exploration Progress has been loaded")
+    if get_config_str_value("ExProg_LocationStatusText") != "yellow" or "dark orange":
+        config.set("ExProg_LocationStatusText", "dark orange")
     return "Exploration Progress"
 
 
