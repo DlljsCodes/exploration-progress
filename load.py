@@ -198,7 +198,7 @@ def update_status():
         status_message = "Where are you?\n" \
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
-        status_colour = "orange"
+        status_colour = "dark orange"
     else:
         logger.debug("All systems go!")
         status_message = ""
