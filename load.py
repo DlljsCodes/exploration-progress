@@ -69,10 +69,13 @@ def plugin_prefs(parent, cmdr, is_beta):
     frame = nb.Frame(parent)
     this.origin_system = tk.StringVar(value=get_config_str_value("ExProg_OriginSystem"))
     this.destination_system = tk.StringVar(value=get_config_str_value("ExProg_DestinationSystem"))
+    this.location_status_text = tk.StringVar(value=get_config_str_value("ExProg_LocationStatusText"))
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
+    nb.Checkbutton(frame, text="Use yellow text for status", variable=this.location_status_text,
+                   onvalue="yellow", offvalue="dark orange").grid()
     nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
     HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
                    url="https://github.com/DlljsCodes/exploration-progress").grid()
@@ -83,6 +86,7 @@ def prefs_changed(cmdr, is_beta):
     # Save settings
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
+    config.set("ExProg_LocationStatusText", this.location_status_text.get())
     update_systems()
 
 
