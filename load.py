@@ -76,7 +76,7 @@ def plugin_prefs(parent, cmdr, is_beta):
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
-    nb.Checkbutton(frame, text="Use yellow text for status", variable=this.location_status_text,
+    nb.Checkbutton(frame, text="Use yellow text for status messages", variable=this.location_status_text,
                    onvalue="yellow", offvalue="#FF5000").grid()
     nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
     HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
