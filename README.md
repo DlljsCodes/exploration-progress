@@ -37,6 +37,10 @@ This EDMC plugin uses its many features to get real-time information on your CMD
 
 Tip: If you get stuck, see the text in the Exploration Progress section of the EDMC window
 
+## License
+
+This plugin is licensed under the MIT License. The license can be found [here](/LICENSE).
+
 ## Credits
 
 * Special thanks to all the EDMC (plugin) developers in the [EDCD Discord Server](https://discord.gg/zQjjutY). Without their help, the EDMC plugin would not exist.
