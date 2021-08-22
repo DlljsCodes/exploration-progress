@@ -46,7 +46,7 @@ origin = System()
 destination = System()
 current = System()
 
-plugin_version = semantic_version.Version("1.0.3")
+plugin_version = semantic_version.Version("1.0.4")
 
 def plugin_start():
     # Load plugin into EDMC
