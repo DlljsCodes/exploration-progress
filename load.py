@@ -51,6 +51,8 @@ plugin_version = semantic_version.Version("1.0.4")
 def plugin_start():
     # Load plugin into EDMC
     logger.info("Exploration Progress has been loaded")
+    if get_config_str_value("ExProg_LocationStatusText") is None or "":
+        config.set("ExProg_LocationStatusText", "#FF5000")
     return "Exploration Progress"
 
 
@@ -69,10 +71,13 @@ def plugin_prefs(parent, cmdr, is_beta):
     frame = nb.Frame(parent)
     this.origin_system = tk.StringVar(value=get_config_str_value("ExProg_OriginSystem"))
     this.destination_system = tk.StringVar(value=get_config_str_value("ExProg_DestinationSystem"))
+    this.location_status_text = tk.StringVar(value=get_config_str_value("ExProg_LocationStatusText"))
     nb.Label(frame, text="Origin System").grid()
     nb.Entry(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
     nb.Entry(frame, textvariable=this.destination_system).grid()
+    nb.Checkbutton(frame, text="Use yellow text for status messages", variable=this.location_status_text,
+                   onvalue="yellow", offvalue="#FF5000").grid()
     nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
     HyperlinkLabel(frame, text="View on GitHub", background=nb.Label().cget('background'),
                    url="https://github.com/DlljsCodes/exploration-progress").grid()
@@ -83,6 +88,7 @@ def prefs_changed(cmdr, is_beta):
     # Save settings
     config.set("ExProg_OriginSystem", this.origin_system.get())
     config.set("ExProg_DestinationSystem", this.destination_system.get())
+    config.set("ExProg_LocationStatusText", this.location_status_text.get())
     update_systems()
 
 
@@ -198,7 +204,7 @@ def update_status():
         status_message = "Where are you?\n" \
                          "Either log into the game or\n" \
                          "make a hyperspace jump to find your current location."
-        status_colour = "yellow"
+        status_colour = get_config_str_value("ExProg_LocationStatusText")
     else:
         logger.debug("All systems go!")
         status_message = ""
