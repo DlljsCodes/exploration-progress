@@ -202,8 +202,8 @@ def update_status():
     elif not current.getNameSet():
         logger.debug("Current system not set")
         status_message = "Where are you?\n" \
-                         "Either log into the game or\n" \
-                         "make a hyperspace jump to find your current location."
+                         "Either log into the game or make a\n" \
+                         "hyperspace jump to find your current location."
         status_colour = get_config_str_value("ExProg_LocationStatusText")
     else:
         logger.debug("All systems go!")
