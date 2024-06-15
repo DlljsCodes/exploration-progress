@@ -1,4 +1,4 @@
-from edsm import get_coords_from_edsm
+from edsm_api import get_coords_from_edsm
 
 
 class System:  # Represents a star system
