@@ -37,6 +37,9 @@ This EDMC plugin uses its many features to get real-time information on your CMD
 
 Tip: If you get stuck, see the text in the Exploration Progress section of the EDMC window
 
+## Issues
+Ran into a problem with the plugin or it doesn't work anymore? The best way to let me know is to [create a new issue on GitHub](https://github.com/DlljsCodes/exploration-progress/issues/new). Otherwise, you can [contact me with these links](#contact). I'll try my best to help!
+
 ## License
 
 This plugin is licensed under the MIT License. The license can be found [here](/LICENSE).
