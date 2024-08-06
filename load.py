@@ -73,9 +73,9 @@ def plugin_prefs(parent, cmdr, is_beta):
     this.destination_system = tk.StringVar(value=get_config_str_value("ExProg_DestinationSystem"))
     this.location_status_text = tk.StringVar(value=get_config_str_value("ExProg_LocationStatusText"))
     nb.Label(frame, text="Origin System").grid()
-    nb.Entry(frame, textvariable=this.origin_system).grid()
+    nb.EntryMenu(frame, textvariable=this.origin_system).grid()
     nb.Label(frame, text="Destination System").grid()
-    nb.Entry(frame, textvariable=this.destination_system).grid()
+    nb.EntryMenu(frame, textvariable=this.destination_system).grid()
     nb.Checkbutton(frame, text="Use yellow text for status messages", variable=this.location_status_text,
                    onvalue="yellow", offvalue="#FF5000").grid()
     nb.Label(frame, text=f"Exploration Progress (v{plugin_version}) by Dlljs").grid()
